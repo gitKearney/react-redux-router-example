@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import './w3.css';
+// import AuthExample from './components/Auth';
+import {App} from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
