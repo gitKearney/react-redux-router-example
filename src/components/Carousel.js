@@ -19,7 +19,7 @@ function Carousel() {
 
     };
 
-    setTimeout(rotateImages, 4000);
+    setTimeout(rotateImages, 2000);
   });
 
   return (

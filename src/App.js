@@ -9,21 +9,17 @@ import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import {BrowserRouter} from "react-router-dom";
 import SideBarRoutes from "./routes/SideBarRoutes";
+import Carousel from "./components/Carousel";
 
 
 function App() {
   return (
     <Provider store={loginStore}>
       <BrowserRouter>
-        <div>
           <Sidebar/>
           <Header />
-          {/* begin the carousel  */}
-          <div className="w3-content">
-            <SideBarRoutes />
-          </div>
-        </div>
-
+          <Carousel />
+          <SideBarRoutes />
       </BrowserRouter>
     </Provider>
   );
