@@ -23,10 +23,10 @@ function Carousel() {
   });
 
   return (
-    <div>
+    <div className="w3-center w3-animate-top">
       {/* <!-- Begin Automatic Slideshow Images --> */}
       <img src={`../../img/${imgSource}`} alt={"rotating images of socks"}
-           className="w3-border" style={{width: '100%', display: 'block',}} />
+           className="w3-border" style={{width: '800px',}} />
       {/* <!-- End Automatic Slideshow Images --> */}
     </div>
   );

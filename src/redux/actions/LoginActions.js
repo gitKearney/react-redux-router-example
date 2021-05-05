@@ -21,6 +21,10 @@ export function loginAction(loginInfo) {
 
   const request = new Request(URI, init);
 
+  return new Promise((resolve) => {
+    resolve(loginSuccess({}));
+  });
+
   return fetch(request)
     .then(response => response.json())
     .then(response => {

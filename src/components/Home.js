@@ -1,8 +1,10 @@
 import React from "react";
+import Carousel from "./Carousel";
+
 function Home() {
   return (
-    <div>
-      <h2>Home Component</h2>
+    <div className="w3-container">
+      <Carousel />
     </div>
   );
 }

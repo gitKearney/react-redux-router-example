@@ -34,7 +34,7 @@ function mapDispatchToProps(dispatch) {
      * @param {function} callback
      */
     login_user: function(loginInfo, callback) {
-      let newState = loginAction(loginInfo)
+      loginAction(loginInfo)
         .then(newState => {
           dispatch(newState);
           callback();
@@ -101,7 +101,7 @@ function Login(props) {
             />
 
             <label htmlFor="show-password">Show Password</label>
-            <input type="checkbox" onChange={changeFieldType} name="show-password"/>
+            <input type="checkbox" onChange={changeFieldType} name="show-password" className="w3-margin-left"/>
           </label>
         </p>
         <p>

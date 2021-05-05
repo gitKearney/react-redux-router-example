@@ -9,17 +9,14 @@ import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import {BrowserRouter} from "react-router-dom";
 import SideBarRoutes from "./routes/SideBarRoutes";
-import Carousel from "./components/Carousel";
-
 
 function App() {
   return (
     <Provider store={loginStore}>
       <BrowserRouter>
-          <Sidebar/>
-          <Header />
-          <Carousel />
-          <SideBarRoutes />
+        <Sidebar/>
+        <Header />
+        <SideBarRoutes />
       </BrowserRouter>
     </Provider>
   );
