@@ -2,12 +2,13 @@ import React, { useState, } from "react";
 import { Link} from "react-router-dom";
 
 function Sidebar() {
-  const [display, setDisplay] = useState('none')
-  const closeSideBar = () => {
+  const [display, setDisplay] = useState('none');
+
+  function closeSideBar() {
     setDisplay('none');
   };
 
-  const openSideBar = () => {
+  function openSideBar() {
     setDisplay('block');
   }
 

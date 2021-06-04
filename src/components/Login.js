@@ -43,6 +43,12 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
+/**
+ * @description React Function component that renders the login page
+ * @param props
+ * @return {JSX.Element}
+ * @constructor
+ */
 function Login(props) {
   let [password, setPassword] = useState('');
   let [email, setEmail] = useState('bob@example.com');
@@ -52,7 +58,6 @@ function Login(props) {
   let location = useLocation();
 
   let { from } = location.state || { from: { pathname: "/" } };
-
 
   const login = (event) => {
     event.stopPropagation();
@@ -87,7 +92,10 @@ function Login(props) {
         <h2 className="w3-center">Login</h2>
         <p>
           <label htmlFor="email">User Name</label>
-          <input className="w3-input w3-border" name="email" id="email" type="text"
+          <input className="w3-input w3-border"
+                 name="email"
+                 id="email"
+                 type="text"
                  onChange={updateEmail}
                  value={email}
           />
@@ -101,7 +109,11 @@ function Login(props) {
             />
 
             <label htmlFor="show-password">Show Password</label>
-            <input type="checkbox" onChange={changeFieldType} name="show-password" className="w3-margin-left"/>
+            <input
+              type="checkbox"
+              onChange={changeFieldType}
+              name="show-password"
+              className="w3-margin-left"/>
           </label>
         </p>
         <p>

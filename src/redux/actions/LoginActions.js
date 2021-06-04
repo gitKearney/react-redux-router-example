@@ -19,30 +19,30 @@ export function loginAction(loginInfo) {
 
   const URI = `http://localhost:3003/auth/`;
 
-  const request = new Request(URI, init);
+  // const request = new Request(URI, init);
 
   return new Promise((resolve) => {
     resolve(loginSuccess({}));
   });
 
-  return fetch(request)
-    .then(response => response.json())
-    .then(response => {
-      if (response.success) {
-        return loginSuccess(response.results);
-      }
-      return loginFailed(response.results);
-    })
+  // return fetch(request)
+  //   .then(response => response.json())
+  //   .then(response => {
+  //     if (response.success) {
+  //       return loginSuccess(response.results);
+  //     }
+  //     return loginFailed(response.results);
+  //   });
 };
 
-const loginSuccess = (data) => {
+function loginSuccess(data) {
   return {
     type: LOGIN_SUCCESS,
     payload: data,
   };
 }
 
-const loginFailed = (data) => {
+function loginFailed(data) {
   return {
     type: LOGIN_FAILED,
     payload: data,

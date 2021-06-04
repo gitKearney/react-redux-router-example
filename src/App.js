@@ -14,9 +14,11 @@ function App() {
   return (
     <Provider store={loginStore}>
       <BrowserRouter>
-        <Sidebar/>
-        <Header />
-        <SideBarRoutes />
+        <div>
+          <Sidebar/>
+          <Header />
+          <SideBarRoutes />
+        </div>
       </BrowserRouter>
     </Provider>
   );

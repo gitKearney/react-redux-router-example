@@ -59,12 +59,12 @@ function AuthExample() {
 
 const fakeAuth = {
   isAuthenticated: false,
-  signIn(cb) {
-    fakeAuth.isAuthenticated = true;
+  signIn: function(cb) {
+    this.isAuthenticated = true;
     setTimeout(cb, 100); // fake async
   },
-  signOut(cb) {
-    fakeAuth.isAuthenticated = false;
+  signOut: function(cb) {
+    this.isAuthenticated = false;
     setTimeout(cb, 100);
   }
 };
@@ -106,7 +106,7 @@ function useProvideAuth() {
 
   const sign_out = cb => {
     return fakeAuth.signOut(() => {
-      setUser(null);
+      setUser(false);
       cb();
     });
   };
@@ -122,18 +122,22 @@ function AuthButton() {
   let history = useHistory();
   let auth = useAuth();
 
-  return auth.user ? (
-    <p>
-      Welcome!{" "}
-      <button
-        onClick={() => {
-          auth.signOut(() => history.push("/"));
-        }}
-      >
-        Sign out
-      </button>
-    </p>
-  ) : (
+  function signOut() {
+    // call the sign_out from useProvideAuth
+    auth.sign_out(() => history.push("/"));
+  }
+
+  if (auth.user) {
+    return (
+      <p>
+        Welcome!{" "}
+        <button onClick={signOut} >
+          Sign out
+        </button>
+      </p>
+    )
+  }
+  return (
     <p>You are not logged in.</p>
   );
 }
@@ -148,8 +152,7 @@ function PrivateRoute2(props) {
 
   if (auth.user) {
     return (
-      <Route render={renderChildren}>
-      </Route>
+      <Route render={renderChildren} />
     );
   }
 
@@ -183,7 +186,7 @@ function LoginPage() {
   let auth = useAuth();
 
   let { from } = location.state || { from: { pathname: "/" } };
-  let login = () => {
+  const login = () => {
     // call the sign in from useProvideAuth
     auth.sign_in(() => {
       history.replace(from);

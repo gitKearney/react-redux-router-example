@@ -1,7 +1,7 @@
 import React from "react";
 
 function Products(props) {
-  const ITEMS_PER_ROW = 3;
+  const ITEMS_PER_ROW = 2;
 
   const productList = [
     {
@@ -60,9 +60,10 @@ function Products(props) {
    *
    * @param {[]} products
    */
-  const createList = (products) => {
+  function createList(products) {
     let newList = [];
     let newRow = [];
+
     products.forEach((product) => {
       if (newRow.length === ITEMS_PER_ROW) {
         newList.push(newRow);
@@ -80,13 +81,71 @@ function Products(props) {
     }
 
     return newList;
-  };
+  }
+
+  /** @param {[]} products */
+  function buildProductList(products) {
+    /**
+     * @description render the row - this will contain 2 products
+     * @param {[]} row
+     * @return {[JSX.Element]}
+     */
+    function createRow(row) {
+      let rowWithProducts = row.map((products) => {
+        return products.map(createProductCard);
+      });
+
+      return rowWithProducts;
+    }
+
+    /**
+     * this card will render one half of the row (6 columns)
+     * @param {Object} product
+     * @return {JSX.Element}
+     */
+    function createProductCard(product) {
+      return (
+        <div className="w3-col w3-half" key={`${product.price}-xyz-${product.title}`}>
+          {/*!--display picture and price here -->*/}
+          <div className="w3-row-padding">
+            <div className="w3-half">
+              <h4>{ product.title }</h4>
+              {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
+              {/* change to the path of the top level (where package.json is,
+                  then react magically goes to the public dir - so link to
+                  images from there
+              */}
+              <img src={"../../img/600_800_placeholder.png"}
+                   className="placeholder"
+                   alt="product image" />
+            </div>
+            <div className="w3-half">
+              <p className="w3-text-blue-gray">{`$${product.price}`}</p>
+            </div>
+          </div>
+
+          <div className="w3-row-padding">
+            <div className="w3-half">
+              { product.description }
+            </div>
+          </div>
+        </div>
+      );
+    } // end createProductCard
+
+    const productLists = createList(products);
+    return (
+      <div className="w3-row-padding">
+        {createRow(productLists)}
+      </div>
+    );
+  }
+
 
   /**
-   *
    * @param {[]} products
    */
-  const buildList = (products) => {
+  function buildList(products) {
     // turn list into array of 3's
     const newList = createList(products);
 
@@ -120,13 +179,7 @@ function Products(props) {
     )
   };
 
-  const prs = buildList(productList);
-
-  return (
-    <div className="w3-content">
-      {prs}
-    </div>
-  )
+  return buildProductList(productList);
 }
 
 export default Products;

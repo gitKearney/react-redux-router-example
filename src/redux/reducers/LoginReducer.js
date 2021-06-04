@@ -6,6 +6,7 @@ const initialState = {
 
 export function loginReducer(state=initialState, action) {
   const newState = {...state};
+  // eslint-disable-next-line no-unused-vars
   const {payload, type} = action;
 
   switch(type) {
