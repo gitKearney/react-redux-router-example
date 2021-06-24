@@ -1,60 +1,100 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import Modal from "./Modal";
+import ModalSlideShow from "./ModalSlideShow";
 
-function Products(props) {
+const productList = [
+  {
+    title: 'Red Socks',
+    price: 4.99,
+    description: 'These Soft Red Socks will make you want to dance',
+    id: 100,
+  },
+  {
+    title: 'Orange Socks',
+    price: 4.99,
+    description: 'These Soft Orange Socks will make you want to dance' +
+      '. They feel like wearing fluffy oranges on your feet and that you' +
+      'll never want to take off',
+    id: 101,
+  },
+  {
+    title: 'Yellow Socks',
+    price: 4.99,
+    description: 'These Soft Yellow Socks will make you want to mellow out',
+    id: 102,
+  },
+  {
+    title: 'Green Socks',
+    price: 4.99,
+    description: 'Soft Green Socks',
+    id: 103,
+  },
+  {
+    title: 'Blue Socks',
+    price: 4.99,
+    description: 'Soft Blue Socks',
+    id: 104,
+  },
+  {
+    title: 'Indigo Socks',
+    price: 4.99,
+    description: 'Soft Indigo Socks',
+    id: 105,
+  },
+  {
+    title: 'Violet Socks',
+    price: 4.99,
+    description: 'Soft Violet Socks',
+    id: 106,
+  },
+  {
+    title: 'White Socks',
+    price: 4.99,
+    description: 'Soft White Socks',
+    id: 107,
+  },
+  {
+    title: 'Black Socks',
+    price: 4.99,
+    description: 'Soft Black Socks',
+    id: 108,
+  },
+  {
+    title: 'Gold Socks',
+    price: 4.99,
+    description: 'Soft Shiny Gold Socks',
+    id: 109,
+  },
+  {
+    title: 'Silver Socks',
+    price: 4.99,
+    description: 'Hard & uncomfortable Shiny Silver Socks',
+    id: 110,
+  },
+  {
+    title: 'Rainbow Socks',
+    price: 4.99,
+    description: 'Crunch Rainbow Socks',
+    id: 112,
+  },
+];
+
+function getProductSlides(product) {
+  if (product?.id !== undefined) {
+    return [
+      '../../img/product-placeholder-1.jpg',
+      '../../img/product-placeholder-2.jpg',
+      '../../img/product-placeholder-3.jpg',
+    ];
+  }
+
+  return [];
+}
+
+function Products() {
   const ITEMS_PER_ROW = 2;
 
-  const productList = [
-    {
-      title: 'Red Socks',
-      price: 4.99,
-      description: 'Soft Red Socks',
-    },
-    {
-      title: 'Orange Socks',
-      price: 4.99,
-      description: 'Soft Orange Socks',
-    },
-    {
-      title: 'Yellow Socks',
-      price: 4.99,
-      description: 'Soft Yellow Socks',
-    },
-    {
-      title: 'Green Socks',
-      price: 4.99,
-      description: 'Soft Green Socks',
-    },
-    {
-      title: 'Blue Socks',
-      price: 4.99,
-      description: 'Soft Blue Socks',
-    },
-    {
-      title: 'Indigo Socks',
-      price: 4.99,
-      description: 'Soft Indigo Socks',
-    },
-    {
-      title: 'Violet Socks',
-      price: 4.99,
-      description: 'Soft Violet Socks',
-    },
-    {
-      title: 'White Socks',
-      price: 4.99,
-      description: 'Soft White Socks',
-    },
-    {
-      title: 'Black Socks',
-      price: 4.99,
-      description: 'Soft Black Socks',
-    },
-    {
-      title: 'Gold Socks',
-      price: 4.99,
-      description: 'Soft Shiny Gold Socks',
-    },
-  ];
+  const [clickedProduct, setClickedProduct] = useState({});
 
   /**
    *
@@ -106,27 +146,30 @@ function Products(props) {
     function createProductCard(product) {
       return (
         <div className="w3-col w3-half" key={`${product.price}-xyz-${product.title}`}>
-          {/*!--display picture and price here -->*/}
-          <div className="w3-row-padding">
-            <div className="w3-half">
-              <h4>{ product.title }</h4>
-              {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
+          {/*<!--display picture and price here -->*/}
+          <div className="w3-row">
+            <div className="w3-container w3-half">
               {/* change to the path of the top level (where package.json is,
                   then react magically goes to the public dir - so link to
                   images from there
               */}
               <img src={"../../img/600_800_placeholder.png"}
                    className="placeholder"
-                   alt="product image" />
+                   alt={`${product.title}`}
+                   onClick={ () => displayProductModal(product) }
+              />
             </div>
-            <div className="w3-half">
+            <div className="w3-container w3-half">
+              <h4>{ product.title }</h4>
+
               <p className="w3-text-blue-gray">{`$${product.price}`}</p>
             </div>
           </div>
 
-          <div className="w3-row-padding">
-            <div className="w3-half">
-              { product.description }
+          {/* <!-- display the product desc here --> */}
+          <div className="w3-row">
+            <div className="w3-container">
+              <p>{ product.description }</p>
             </div>
           </div>
         </div>
@@ -135,50 +178,30 @@ function Products(props) {
 
     const productLists = createList(products);
     return (
-      <div className="w3-row-padding">
-        {createRow(productLists)}
+      <div>
+        {/* modal will always be rendered, just hidden */}
+        <Modal title={clickedProduct.title ?? ''}
+               closeModal={closeModal}>
+          <ModalSlideShow
+            product={clickedProduct}
+            productSlides={getProductSlides(clickedProduct)} />
+        </Modal>
+        <div className="w3-row">
+          {createRow(productLists)}
+        </div>
       </div>
     );
   }
 
+  function displayProductModal(product) {
+    setClickedProduct(product);
+  }
 
-  /**
-   * @param {[]} products
-   */
-  function buildList(products) {
-    // turn list into array of 3's
-    const newList = createList(products);
+  function closeModal() {
+    setClickedProduct({});
+  }
 
-    const rows = newList.map((productRow, rowIndex) => {
-      const rowCards = productRow.map((product, productIndex) => {
-        return (
-          <div className="w3-col m4 l4" key={`product-${rowIndex}-${productIndex}`}>
-            <div className="w3-container w3-sand">
-              <div className="w3-center">{product.title}</div>
-              <div className="w3-right">${product.price}</div>
-            </div>
-
-            <div className="w3-container">
-              {product.description}
-            </div>
-          </div>
-        );
-      });
-
-      return (
-        <div className="w3-row-padding w3-margin-bottom" key={`row-${rowIndex}`}>
-          {rowCards}
-        </div>
-      );
-    });
-
-    return (
-      <div className="w3-container">
-        {rows}
-      </div>
-    )
-  };
-
+  // RENDER
   return buildProductList(productList);
 }
 

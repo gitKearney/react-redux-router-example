@@ -1,7 +1,7 @@
-import {LOGIN_FAILED, LOGIN_SUCCESS} from "../types";
+import { LOGIN_SUCCESS } from "../types";
 
 export function loginAction(loginInfo) {
-  loginInfo['email'] = 'skip';
+  /*loginInfo['email'] = 'skip';
   loginInfo['pass'] = 'skip';
 
   let init = {
@@ -19,8 +19,8 @@ export function loginAction(loginInfo) {
 
   const URI = `http://localhost:3003/auth/`;
 
-  // const request = new Request(URI, init);
-
+  const request = new Request(URI, init);
+  */
   return new Promise((resolve) => {
     resolve(loginSuccess({}));
   });
@@ -42,9 +42,11 @@ function loginSuccess(data) {
   };
 }
 
+/*
 function loginFailed(data) {
   return {
     type: LOGIN_FAILED,
     payload: data,
   };
 }
+*/
